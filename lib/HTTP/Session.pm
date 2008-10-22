@@ -1,7 +1,7 @@
 package HTTP::Session;
 use Moose;
 use 5.00800;
-our $VERSION = '0.01_03';
+our $VERSION = '0.01_04';
 use Digest::SHA1 ();
 use Time::HiRes ();
 use Moose::Util::TypeConstraints;
@@ -10,6 +10,7 @@ use Scalar::Util ();
 
 class_type 'CGI';
 class_type 'HTTP::Engine::Request';
+class_type 'HTTP::Request';
 
 has store => (
     is       => 'ro',
@@ -25,7 +26,7 @@ has state => (
 
 has request => (
     is       => 'ro',
-    isa      => 'CGI|HTTP::Engine::Request',
+    isa      => 'CGI|HTTP::Engine::Request|HTTP::Request',
     required => 1,
 );
 
@@ -58,7 +59,12 @@ has sid_length => (
     default => 32,
 );
 
-sub load_session {
+sub BUILD {
+    my $self = shift;
+    $self->_load_session;
+}
+
+sub _load_session {
     my $self = shift;
 
     my $session_id = $self->state->get_session_id($self->request);
@@ -68,6 +74,9 @@ sub load_session {
         if ($data) {
             $self->_data($data);
         } else {
+            # session was expired? or session fixation?
+            # regen session id.
+            $self->session_id( $self->_generate_session_id($self->request) );
             $self->is_fresh(1);
         }
     } else {
