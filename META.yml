@@ -18,9 +18,9 @@ no_index:
     - inc
     - t
 requires:
-  CGI::Cookie: 1.29
+  CGI::Simple::Cookie: 1.103
   Moose: 0.59
   perl: 5.8.0
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.01_01
+version: 0.01_02

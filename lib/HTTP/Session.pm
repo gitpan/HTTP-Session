@@ -1,7 +1,7 @@
 package HTTP::Session;
 use Moose;
 use 5.00800;
-our $VERSION = '0.01_01';
+our $VERSION = '0.01_02';
 use Digest::SHA1 ();
 use Time::HiRes ();
 use Moose::Util::TypeConstraints;
@@ -191,15 +191,15 @@ easy to integrate with L<HTTP::Engine> =)
 
 =over 4
 
-=item load_session
+=item $session->load_session()
 
 load session
 
-=item response_filter
+=item $session->response_filter()
 
 filtering response
 
-=item keys
+=item $session->keys()
 
 keys of session.
 
@@ -219,11 +219,13 @@ remove item.
 
 remove whole items
 
-=item as_hashref
+=item $session->as_hashref()
 
 session as hashref.
 
-=item expire
+=item $session->expire()
+
+expire the session
 
 =back
 
@@ -232,6 +234,8 @@ session as hashref.
 Tokuhiro Matsuno E<lt>tokuhirom AAJKLFJEF GMAIL COME<gt>
 
 =head1 SEE ALSO
+
+L<Catalyst::Plugin::Session>, L<Sledge::Session>
 
 =head1 LICENSE
 
