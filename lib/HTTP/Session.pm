@@ -1,7 +1,7 @@
 package HTTP::Session;
 use Moose;
 use 5.00800;
-our $VERSION = '0.01_04';
+our $VERSION = '0.01_05';
 use Digest::SHA1 ();
 use Time::HiRes ();
 use Moose::Util::TypeConstraints;
@@ -69,15 +69,20 @@ sub _load_session {
 
     my $session_id = $self->state->get_session_id($self->request);
     if ( $session_id ) {
-        $self->session_id( $session_id );
-        my $data = $self->store->select($self->session_id);
+        my $data = $self->store->select($session_id);
         if ($data) {
+            $self->session_id( $session_id );
             $self->_data($data);
         } else {
-            # session was expired? or session fixation?
-            # regen session id.
-            $self->session_id( $self->_generate_session_id($self->request) );
-            $self->is_fresh(1);
+            if ($self->state->permissive) {
+                $self->session_id( $session_id );
+                $self->is_fresh(1);
+            } else {
+                # session was expired? or session fixation?
+                # regen session id.
+                $self->session_id( $self->_generate_session_id($self->request) );
+                $self->is_fresh(1);
+            }
         }
     } else {
         # no sid; generate it
@@ -95,7 +100,6 @@ sub _generate_session_id {
 sub response_filter {
     my ($self, $response) = @_;
     Carp::croak "missing response" unless Scalar::Util::blessed $response;
-    Carp::croak "missing session_id" unless defined $self->session_id;
 
     $self->state->response_filter($response, $self->session_id);
 }
@@ -157,6 +161,19 @@ sub expire {
 
     # rebless to null class
     bless $self, 'HTTP::Session::Expired';
+}
+
+sub regenerate_session_id {
+    my ($self, $delete_old) = @_;
+    $self->_data( { %{ $self->_data } } );
+
+    if ($delete_old) {
+        my $oldsid = $self->session_id;
+        $self->store->delete($oldsid);
+    }
+    my $session_id = $self->_generate_session_id();
+    $self->session_id( $session_id );
+    $self->is_fresh(1);
 }
 
 no Moose; __PACKAGE__->meta->make_immutable;
@@ -235,6 +252,14 @@ session as hashref.
 =item $session->expire()
 
 expire the session
+
+=item $session->regenerate_session_id([$delete_old])
+
+regenerate session id.remove old one when $delete_old is true value.
+
+=item BUILD
+
+internal use only
 
 =back
 
