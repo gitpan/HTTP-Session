@@ -37,3 +37,5 @@ IDs
 memcached
 memd
 IP
+HTML
+URL
