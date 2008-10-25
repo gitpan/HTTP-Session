@@ -8,7 +8,7 @@ use Sub::Uplevel qw( uplevel );
 use base qw( Exporter );
 use Carp;
 
-our $VERSION = '0.27';
+our $VERSION = '0.26';
 our @EXPORT = qw(dies_ok lives_ok throws_ok lives_and);
 
 my $Tester = Test::Builder->new;
@@ -25,24 +25,9 @@ sub import {
 
 #line 84
 
-sub _quiet_caller (;$) { ## no critic Prototypes
-    my $height = $_[0];
-    $height++;
-    if( wantarray and !@_ ) {
-        return (CORE::caller($height))[0..2];
-    }
-    else {
-        return CORE::caller($height);
-    }
-}
 
 sub _try_as_caller {
     my $coderef = shift;
-
-    # local works here because Sub::Uplevel has already overridden caller
-    local *CORE::GLOBAL::caller;
-    { no warnings 'redefine'; *CORE::GLOBAL::caller = \&_quiet_caller; }
-
     eval { uplevel 3, $coderef };
     return $@;
 };
@@ -65,7 +50,7 @@ sub _exception_as_string {
 };
 
 
-#line 169
+#line 154
 
 
 sub throws_ok (&$;$) {
@@ -91,7 +76,7 @@ sub throws_ok (&$;$) {
 };
 
 
-#line 215
+#line 200
 
 sub dies_ok (&;$) {
     my ( $coderef, $description ) = @_;
@@ -102,7 +87,7 @@ sub dies_ok (&;$) {
 }
 
 
-#line 254
+#line 239
 
 sub lives_ok (&;$) {
     my ( $coderef, $description ) = @_;
@@ -114,7 +99,7 @@ sub lives_ok (&;$) {
 }
 
 
-#line 294
+#line 279
 
 sub lives_and (&;$) {
     my ( $test, $description ) = @_;
@@ -138,6 +123,6 @@ sub lives_and (&;$) {
     return;
 }
 
-#line 460
+#line 445
 
 1;
