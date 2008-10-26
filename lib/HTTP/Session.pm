@@ -1,16 +1,12 @@
 package HTTP::Session;
 use Moose;
 use 5.00800;
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 use Digest::SHA1 ();
 use Time::HiRes ();
 use Moose::Util::TypeConstraints;
 use Carp ();
 use Scalar::Util ();
-
-class_type 'CGI';
-class_type 'HTTP::Engine::Request';
-class_type 'HTTP::Request';
 
 has store => (
     is       => 'ro',
@@ -26,7 +22,7 @@ has state => (
 
 has request => (
     is       => 'ro',
-    isa      => 'CGI|HTTP::Engine::Request|HTTP::Request',
+    isa      => 'Object',
     required => 1,
 );
 
