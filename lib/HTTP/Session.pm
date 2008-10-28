@@ -1,7 +1,7 @@
 package HTTP::Session;
 use Moose;
 use 5.00800;
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 use Digest::SHA1 ();
 use Time::HiRes ();
 use Moose::Util::TypeConstraints;
@@ -168,9 +168,11 @@ sub regenerate_session_id {
     for my $meth (qw/redirect_filter header_filter html_filter/) {
         $meta->add_method(
             $meth, sub {
-                my $self = shift;
+                my ($self, $stuff) = @_;
                 if ($self->state->can($meth)) {
-                    $self->state->$meth($self->session_id, @_);
+                    $self->state->$meth($self->session_id, $stuff);
+                } else {
+                    $stuff;
                 }
             },
         );
