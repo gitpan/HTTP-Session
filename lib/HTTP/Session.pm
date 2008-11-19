@@ -3,10 +3,9 @@ use strict;
 use warnings;
 use base qw/Class::Accessor::Fast/;
 use 5.00800;
-our $VERSION = '0.20';
+our $VERSION = '0.21';
 use Digest::SHA1 ();
 use Time::HiRes ();
-use Moose::Util::TypeConstraints;
 use Carp ();
 use Scalar::Util ();
 
@@ -113,7 +112,7 @@ sub expire {
     $self->store->delete($self->session_id);
 
     # XXX tricky bit to unlock
-    delete $self->{$_} for qw(is_fresh changed);
+    delete $self->{$_} for qw(is_fresh is_changed);
     $self->DESTROY;
 
     # rebless to null class
