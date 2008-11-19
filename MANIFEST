@@ -20,8 +20,7 @@ inc/Test/Exception.pm
 inc/Test/More.pm
 inc/YAML.pm
 lib/HTTP/Session.pm
-lib/HTTP/Session/Role/State.pm
-lib/HTTP/Session/Role/Store.pm
+lib/HTTP/Session/State/Base.pm
 lib/HTTP/Session/State/Cookie.pm
 lib/HTTP/Session/State/GUID.pm
 lib/HTTP/Session/State/MobileAttributeID.pm
