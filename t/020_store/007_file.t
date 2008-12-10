@@ -4,11 +4,11 @@ use Test::More tests => 5;
 use Test::Exception;
 use HTTP::Session;
 use CGI;
-use HTTP::Session::Store::DBM;
+use HTTP::Session::Store::File;
 use HTTP::Session::State::Test;
 use File::Temp;
 
-my (undef, $fname) = File::Temp::tempfile(UNLINK => 1);
+my $dir = File::Temp::tempdir();
 sub {
     my $session = gen_session();
     is $session->session_id, 'haheeee';
@@ -25,13 +25,10 @@ sub {
     is $session->get('complex')->{'t'}, 'k', 'fetch complex stuff';
 }->();
 
-unlink "${fname}.$_" for qw/pag dir/;
-
 sub gen_session {
     my $session = HTTP::Session->new(
-        store => HTTP::Session::Store::DBM->new(
-            file      => $fname,
-            dbm_class => 'SDBM_File',
+        store => HTTP::Session::Store::File->new(
+            dir => $dir,
         ),
         state   => HTTP::Session::State::Test->new(
             session_id => 'haheeee',

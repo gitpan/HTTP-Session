@@ -5,7 +5,7 @@ use YAML::Base;
 use base 'YAML::Base';
 use YAML::Node;         # XXX This is a temp fix for Module::Build
 use 5.006001;
-our $VERSION = '0.66';
+our $VERSION = '0.68';
 our @EXPORT = qw'Dump Load';
 our @EXPORT_OK = qw'freeze thaw DumpFile LoadFile Bless Blessed';
 
@@ -100,4 +100,6 @@ sub global_object { $global }
 
 __END__
 
-#line 788
+=encoding utf8
+
+#line 810
