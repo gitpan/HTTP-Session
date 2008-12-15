@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use base qw/Class::Accessor::Fast/;
 use 5.00800;
-our $VERSION = '0.26';
+our $VERSION = '0.27';
 use Carp ();
 use Scalar::Util ();
 use UNIVERSAL::require;
@@ -262,6 +262,10 @@ commit the session data.
 internal use only
 
 =back
+
+=head1 CLEANUP SESSION
+
+Some storage doesn't care the old session data.Please call $store->cleanup( $min ); manually.
 
 =head1 AUTHOR
 
