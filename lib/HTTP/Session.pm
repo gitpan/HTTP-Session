@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use base qw/Class::Accessor::Fast/;
 use 5.00800;
-our $VERSION = '0.28';
+our $VERSION = '0.29';
 use Carp ();
 use Scalar::Util ();
 use UNIVERSAL::require;
@@ -162,7 +162,7 @@ BEGIN {
     }
 }
 
-package HTTP::Session::Finailzed;
+package HTTP::Session::Finalized;
 sub is_fresh { 0 }
 sub AUTOLOAD { }
 
