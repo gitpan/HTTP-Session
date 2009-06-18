@@ -1,8 +1,15 @@
 Revision history for Perl extension HTTP::Session
 
+0.31
+
+    - State::URI: added / to input tag
+        BEFORE: <input type="hidden" >
+        AFTER:  <input type="hidden" />
+      (suggested by nekokak++)
+
 0.30
 
-    - fixed uuv(by yappo++)
+    - fixed uuv warning
 
 0.29
 
