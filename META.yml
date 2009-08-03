@@ -34,7 +34,8 @@ requires:
   Filter::Util::Call: 0
   HTTP::Response: 5.818
   UNIVERSAL::require: 0.05
+  URI: 1.38
   perl: 5.8.0
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.31
+version: 0.32
