@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use base qw/Class::Accessor::Fast/;
 use 5.00800;
-our $VERSION = '0.33';
+our $VERSION = '0.34';
 use Carp ();
 use Scalar::Util ();
 use UNIVERSAL::require;
@@ -216,10 +216,6 @@ C<state> is instance of HTTP::Session::State::*.
 C<request> is duck typed object.C<request> object should have C<header>, C<address>, C<param>.
 You can use PSGI's $env instead.
 
-=item $session->load_session()
-
-load session
-
 =item $session->html_filter($html)
 
 filtering HTML
@@ -269,10 +265,6 @@ regenerate session id.remove old one when $delete_old is true value.
 =item $session->finalize()
 
 commit the session data.
-
-=item BUILD
-
-internal use only
 
 =back
 
