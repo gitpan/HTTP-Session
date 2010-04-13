@@ -3,13 +3,13 @@ use strict;
 use warnings;
 use base qw/Class::Accessor::Fast/;
 use 5.00800;
-our $VERSION = '0.34';
+our $VERSION = '0.35';
 use Carp ();
 use Scalar::Util ();
 use UNIVERSAL::require;
 
-__PACKAGE__->mk_ro_accessors(qw/store state request sid_length/);
-__PACKAGE__->mk_accessors(qw/session_id _data is_changed is_fresh/);
+__PACKAGE__->mk_ro_accessors(qw/store request sid_length/);
+__PACKAGE__->mk_accessors(qw/session_id _data is_changed is_fresh state/);
 
 sub new {
     my $class = shift;
