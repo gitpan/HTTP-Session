@@ -4,14 +4,10 @@ author:
   - 'Tokuhiro Matsuno <tokuhirom AAJKLFJEF GMAIL COM>'
 build_requires:
   ExtUtils::MakeMaker: 6.42
-  Test::Exception: 0
-  Test::More: 0
-  Test::Requires: 0
-  YAML: 0
 configure_requires:
   ExtUtils::MakeMaker: 6.42
 distribution_type: module
-generated_by: 'Module::Install version 0.95'
+generated_by: 'Module::Install version 0.99'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -32,7 +28,6 @@ requires:
   CGI::Simple::Cookie: 1.103
   Class::Accessor::Fast: 0.31
   Digest::SHA1: 2.11
-  Filter::Util::Call: 0
   HTTP::Response: 5.818
   UNIVERSAL::require: 0.05
   URI: 1.38
@@ -40,4 +35,4 @@ requires:
 resources:
   license: http://dev.perl.org/licenses/
   repository: git://github.com/tokuhirom/http-session.git
-version: 0.35
+version: 0.36
