@@ -21,7 +21,6 @@ no_index:
     - xt
 recommends:
   HTML::StickyQuery: 0.12
-  HTTP::MobileAgent: 0.27
 requires:
   CGI::Simple::Cookie: 1.103
   Class::Accessor::Fast: 0.31
@@ -34,4 +33,4 @@ requires:
 resources:
   license: http://dev.perl.org/licenses/
   repository: git://github.com/tokuhirom/http-session.git
-version: 0.39
+version: 0.40
