@@ -6,20 +6,11 @@ requires 'Class::Accessor::Fast' => 0.31;
 requires 'CGI::Simple::Cookie' => 1.103;
 requires 'Digest::SHA1'        => 2.11;
 requires 'HTTP::Response'      => 5.818;
-requires 'UNIVERSAL::require'  => 0.05;
+requires 'Module::Runtime'     => 0.011;
 requires 'URI'                 => 1.38;
 requires 'Exporter'            => 5.63; # depend to latest Exporter for 'use Exporter "import"'.
 
 recommends 'HTML::StickyQuery'               => 0.12; # State::URI
-
-if ($Module::Install::AUTHOR) {
-	requires 'HTML::StickyQuery';
-	requires 'CHI';
-	requires 'HTML::StickyQuery';
-	requires 'Test::Memory::Cycle';
-	requires 'Test::Perl::Critic';
-	requires 'Test::Pod';
-}
 
 tests 't/*.t t/*/*.t t/*/*/*.t t/*/*/*/*.t';
 test_requires 'Test::Requires';
