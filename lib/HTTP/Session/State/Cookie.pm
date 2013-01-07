@@ -6,7 +6,7 @@ use Scalar::Util ();
 
 our $COOKIE_CLASS = 'CGI::Cookie';
 
-__PACKAGE__->mk_ro_accessors(qw/name path domain expires/);
+__PACKAGE__->mk_accessors(qw/name path domain expires secure/);
 
 {
     my $required = 0;
@@ -62,6 +62,7 @@ sub header_filter {
             );
             $options{'-domain'} = $self->domain if $self->domain;
             $options{'-expires'} = $self->expires if $self->expires;
+            $options{'-secure'} = $self->secure if $self->secure;
             %options;
         }->()
     );
@@ -119,8 +120,14 @@ path.
 
 =item expires
 
-expire date.e.g. "+3M".
+expiration date.e.g. "+3M".
 see also L<CGI::Cookie>.
+
+    default: undef
+
+=item secure
+
+Set secure flag or not.
 
     default: undef
 
